@@ -172,7 +172,7 @@ export default async function PortfolioDetailPage({ params }: PageProps) {
                 Texnologiyalar
               </h2>
               <div className="flex flex-wrap gap-3">
-                {project.technologies.map((tech) => (
+                {project.technologies.map((tech: string) => (
                   <span
                     key={tech}
                     className="px-4 py-2 rounded-xl bg-blue-500/20 text-blue-400 font-semibold"
@@ -192,7 +192,7 @@ export default async function PortfolioDetailPage({ params }: PageProps) {
                 Teglar
               </h2>
               <div className="flex flex-wrap gap-3">
-                {project.tags.map((tag) => (
+                {project.tags.map((tag: string) => (
                   <span
                     key={tag}
                     className="px-4 py-2 rounded-xl bg-[#FF0080]/20 text-[#FF0080] font-semibold"
