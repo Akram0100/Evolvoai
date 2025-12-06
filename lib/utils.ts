@@ -25,7 +25,7 @@ export function generateSlug(title: string): string {
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
-    .trim();
+    .trim() + "-" + Date.now().toString().slice(-6);
 }
 
 export function truncateText(text: string, maxLength: number): string {

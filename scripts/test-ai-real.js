@@ -81,8 +81,26 @@ Quyidagi JSON formatda qaytaring (faqat JSON, boshqa matn yo'q):
     console.log("\n🌐 Ko'rish: http://localhost:3003/blog/" + post.slug);
     console.log("\n🎉 Muvaffaqiyat! Haqiqiy AI post yaratildi!");
 
-    return post;
+// Telegram function (copied from lib/telegram.ts to run in standalone script)
+    const { Bot } = require("grammy");
+    const bot = process.env.TELEGRAM_BOT_TOKEN ? new Bot(process.env.TELEGRAM_BOT_TOKEN) : null;
 
+    if (bot && process.env.TELEGRAM_CHANNEL_ID) {
+      console.log("   📨 Telegram kanalga yuborilmoqda...");
+      try {
+        const message = `🤖 <b>${post.title}</b>\n\n${post.excerpt}\n\n🔗 <a href="http://localhost:3000/blog/${post.slug}">To'liq o'qish</a>\n\n#${post.category} #EvolvoAI`;
+        
+        await bot.api.sendPhoto(process.env.TELEGRAM_CHANNEL_ID, post.imageUrl, {
+          caption: message,
+          parse_mode: "HTML"
+        });
+        console.log("   ✅ Telegramga yuborildi!");
+      } catch (err) {
+        console.error("   ❌ Telegram xatosi:", err.message);
+      }
+    }
+
+    return post;
   } catch (error) {
     console.error("\n❌ Xatolik:", error.message);
     

@@ -5,10 +5,12 @@
  * Run this to manually generate blog posts without waiting for cron
  */
 
+import "dotenv/config";
 import { generateBlogPost, categories } from "../lib/gemini";
 import { prisma } from "../lib/prisma";
 import { generateSlug, calculateReadTime } from "../lib/utils";
 import { fetchCategoryImage, trackImageDownload } from "../lib/unsplash";
+import { sendToChannel } from "../lib/telegram";
 
 async function generatePost(category: string) {
   console.log(`\n📝 Generating post for category: ${category}`);
@@ -45,6 +47,21 @@ async function generatePost(category: string) {
     if (image.downloadUrl) {
       await trackImageDownload(image.downloadUrl);
     }
+
+    // Send to Telegram channel
+    console.log("   📨 Sending to Telegram channel...");
+    try {
+      await sendToChannel({
+        title: post.title,
+        content: post.excerpt,
+        category: post.category,
+        link: `/blog/${post.id}`, // Using internal link, can be updated to full URL
+        imageUrl: post.imageUrl || undefined,
+      });
+      console.log("   ✅ Sent to Telegram!");
+    } catch (err) {
+      console.error("   ⚠️ Failed to send to Telegram:", err);
+    }
     
     console.log(`✅ Post created successfully!`);
     console.log(`   Title: ${post.title}`);
@@ -66,9 +83,13 @@ async function main() {
     console.log("🤖 Generating posts for all categories...\n");
     
     for (const category of categories) {
-      await generatePost(category);
-      // Wait 2 seconds between requests to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      try {
+        await generatePost(category);
+      } catch (err) {
+        console.error(`⚠️ Skipping ${category} due to error.`);
+      }
+      // Wait 5 seconds between requests to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 5000));
     }
   } else {
     const category = args[0];

@@ -105,12 +105,27 @@ export async function trackImageDownload(downloadUrl: string): Promise<void> {
  * Fallback placeholder image if Unsplash is unavailable
  */
 function getPlaceholderImage(category: string): UnsplashImage {
-  const hash = category.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const imageId = 1000 + (hash % 9000); // Generate consistent but varied IDs
+  // Use real working Unsplash placeholder images
+  const placeholders: Record<string, string> = {
+    biznes: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1080&q=80",
+    texnologiya: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1080&q=80",
+    marketing: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1080&q=80",
+    AI: "https://images.unsplash.com/photo-1677442135136-760c813028c0?w=1080&q=80",
+    dasturlash: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1080&q=80",
+    startaplar: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1080&q=80",
+    dizayn: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1080&q=80",
+    sotsiomedia: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1080&q=80",
+    "e-commerce": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1080&q=80",
+    avtomatlashtirish: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1080&q=80",
+    chatbotlar: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1080&q=80",
+    SEO: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=1080&q=80",
+  };
+  
+  const url = placeholders[category] || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1080&q=80";
   
   return {
-    id: `placeholder-${category}-${imageId}`,
-    url: `https://images.unsplash.com/photo-${imageId}?w=1080&q=80`,
+    id: `placeholder-${category}`,
+    url: url,
     downloadUrl: "",
     author: "Unsplash",
     authorUrl: "https://unsplash.com",
