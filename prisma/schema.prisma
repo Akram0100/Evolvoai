@@ -59,6 +59,21 @@ model Subscriber {
   @@index([isActive])
 }
 
+// Telegram bot subscribers
+model TelegramSubscriber {
+  id         String   @id @default(cuid())
+  chatId     String   @unique  // Telegram chat ID
+  username   String?           // @username
+  firstName  String?
+  lastName   String?
+  isActive   Boolean  @default(true)
+  subscribedAt DateTime @default(now())
+  lastActivity DateTime @default(now())
+
+  @@index([isActive])
+  @@index([chatId])
+}
+
 model TelegramPost {
   id          String   @id @default(cuid())
   postType    TelegramPostType
