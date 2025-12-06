@@ -26,6 +26,12 @@ services:
         sync: false
       - key: CRON_SECRET
         generate: true
+      - key: UNSPLASH_ACCESS_KEY
+        sync: false
+      - key: GEMINI_API_KEY2
+        sync: false
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
 
 databases:
   - name: evolvoai-db
