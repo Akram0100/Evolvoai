@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://evolvoai.uz";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://evolvoai-ysus.onrender.com";
 
   // Get all published blog posts
   const posts = await prisma.blogPost.findMany({
