@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AdSenseScript } from "@/components/ads/google-adsense";
+import { PushNotificationBanner } from "@/components/ui/push-notification";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,6 +87,7 @@ export default function RootLayout({
         {children}
         <Toaster />
         <AdSenseScript />
+        <PushNotificationBanner />
       </body>
     </html>
   );
