@@ -31,7 +31,7 @@ export async function generateTrendingPost(category: string): Promise<TrendingPo
   // 1. Initialize Model with Search Tool
   const model = genAI.getGenerativeModel({
     model: MODEL_NAME,
-    tools: [{ googleSearch: {} }], // Enable Google Search Grounding
+    tools: [{ googleSearch: {} }] as any, // Enable Google Search Grounding
   });
 
   const prompt = `Find the latest breaking news and trends about "${category}" from the last 24 hours (use Google Search).
@@ -113,7 +113,7 @@ export async function generateAudioSummary(text: string): Promise<string | null>
     if (!candidates || candidates.length === 0) throw new Error("No candidates returned from TTS model");
 
     const parts = candidates[0].content.parts;
-    const audioPart = parts.find(p => p.inlineData && p.inlineData.mimeType.startsWith("audio/"));
+    const audioPart = parts.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith("audio/"));
 
     if (!audioPart || !audioPart.inlineData) {
        console.warn("   ⚠️ Gemini TTS returned no audio. Falling back...");
