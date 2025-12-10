@@ -5,6 +5,9 @@ import { generateSlug, calculateReadTime } from "@/lib/utils";
 import { sendToChannel, notifySubscribers } from "@/lib/telegram";
 import { fetchCategoryImage, trackImageDownload } from "@/lib/unsplash";
 
+// Allow up to 120 seconds for this route (for Vercel/Render)
+export const maxDuration = 120;
+
 // Verify cron secret for security
 function verifyCronSecret(request: NextRequest): boolean {
   const authHeader = request.headers.get("authorization");
