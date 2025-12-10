@@ -103,6 +103,7 @@ export async function generateBlogPost(category: string): Promise<GeneratedConte
   
   // Extensive list of models to try in order of preference
   const models = [
+    "gemini-2.5-flash",       // User suggested, verified working on 10.12.2025
     "gemini-2.0-flash-exp",   // Newest, fastest
     "gemini-2.0-flash",       // Alias
     "gemini-1.5-flash",       // Standard 1.5 Flash
