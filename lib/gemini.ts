@@ -38,33 +38,71 @@ export interface GeneratedContent {
   keywords: string[];
 }
 
-const prompt = (category: string) => `Sen professional ${category} bo'yicha kontent yozuvchisan. 
-O'zbek auditoriyasi uchun qiziqarli, amaliy va SEO-optimallashtirilgan blog post yarat. 
+const prompt = (category: string) => `Sen O'zbekistonning yetakchi ${category} bo'yicha professional jurnalist va tahlilchisan.
+O'zbek auditoriyasi uchun yuqori sifatli, chuqur tahliliy va jurnalistik uslubda maqola yoz.
 
-Mavzu: ${category} sohasida dolzarb va amaliy mavzu tanlang
-Format:
-- Catchy sarlavha (50-60 belgi)
-- Qisqa kirish (150-160 belgi) - bu excerpt bo'ladi
-- Asosiy kontent (800-1200 so'z):
-  * Kirish qismi (2-3 paragraf)
-  * 3-4 ta asosiy bo'lim (har biri subheading bilan)
-  * Amaliy maslahatlar yoki misollar
-  * Xulosa + CTA
-- SEO sarlavha (60 belgi)
-- SEO tavsif (150-160 belgi)
-- 5-8 ta kalit so'z (vergul bilan ajratilgan)
+🎯 MAVZU: ${category} sohasida hozirgi kundagi eng dolzarb, muhokama qilinayotgan mavzuni tanla.
 
-Ton: professional, do'stona, sodda tilda
-Format: Markdown
+📰 JURNALISTIK FORMAT (Albatta quyidagi strukturaga rioya qil):
+
+1. SARLAVHA (60-80 belgi):
+   - Jurnalistik sarlavha: "Kim nima qildi" yoki "Nima sodir bo'ldi" formatida
+   - Misollar: "O'zbekiston IT sektori 2024-yilda rekord o'sish ko'rsatdi", "Yangi AI startaplar to'lqini: O'zbeklik dasturchilar jahon bozoriga chiqmoqda"
+
+2. LID/KIRISH QISMI (2-3 gap):
+   - Kim? Nima? Qachon? Qayerda? Nega? - 5W formatida
+   - Eng muhim faktni birinchi gapda ayt
+   - Misollar: "O'zbekiston Axborot texnologiyalari vazirligi ma'lumotlariga ko'ra, ..."
+
+3. ASOSIY MATN STRUKTURASI:
+   
+   ## Voqea tafsilotlari
+   - Aniq faktlar va raqamlar bilan (masalan: "35% o'sish", "1.2 million foydalanuvchi")
+   - Ekspert fikrlari va iqtiboslar (masalan: *"Bu bizning strategik yo'nalishimiz" - deb ta'kidladi mutaxassis*)
+   
+   ## Tahlil va kontekst
+   - Nima uchun bu muhim?
+   - Qanday oqibatlarga olib keladi?
+   - Oldingi holatlar bilan taqqoslash
+   
+   ## Asosiy xulosalar (bullet points)
+   - Asosiy xulosalarni aniq punktlarda yoz:
+     • Birinchi xulosa
+     • Ikkinchi xulosa  
+     • Uchinchi xulosa
+   
+   ## Kelajak istiqbollari
+   - Mutaxassislar prognozi
+   - Kutilayotgan o'zgarishlar
+   - Tavsiyalar
+
+4. XULOSA (1-2 paragraf):
+   - Maqolaning asosiy xulosasi
+   - O'quvchiga qo'shimcha harakatga undov (CTA)
+
+📝 YOZISH QOIDALARI:
+- Har bir da'vo faktlar bilan asoslansin
+- Raqamlar va statistika ishlatilsin
+- Ekspert fikrlari qo'shilsin (mutaxassis ismlari)
+- Bullet pointlar va ro'yxatlar ishlatilsin
+- Paragraflar qisqa bo'lsin (3-4 gap)
+- Professional jurnalistik uslubda yoz
+- Markdown formatlash: **qalin matn**, *kursiv*, ## sarlavhalar, - ro'yxatlar ishlat
+- Minimum 1000-1500 so'z
+
+❌ QILMA:
+- Oddiy qo'llanma yoki "qanday qilish kerak" formatida yozma
+- Umumiy va sayoz mazmun yozma
+- Faktlarsiz da'volar qilma
 
 Javobni quyidagi JSON formatda qaytaring:
 {
-  "title": "Blog post sarlavhasi",
-  "excerpt": "Qisqa tavsif",
-  "content": "To'liq markdown kontent",
-  "seoTitle": "SEO sarlavha",
-  "seoDescription": "SEO tavsif",
-  "keywords": ["kalit1", "kalit2", "kalit3"]
+  "title": "Jurnalistik sarlavha",
+  "excerpt": "Maqolaning 1-2 gaplik qisqacha mazmuni (lid formati)",
+  "content": "To'liq markdown formatdagi professional maqola",
+  "seoTitle": "SEO uchun sarlavha (60 belgi)",
+  "seoDescription": "SEO uchun tavsif (150-160 belgi)",
+  "keywords": ["kalit1", "kalit2", "kalit3", "kalit4", "kalit5"]
 }`;
 
 // Generate content with a specific client and model

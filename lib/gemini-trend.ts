@@ -34,25 +34,55 @@ export async function generateTrendingPost(category: string): Promise<TrendingPo
     tools: [{ googleSearch: {} }] as any, // Enable Google Search Grounding
   });
 
-  const prompt = `Find the latest breaking news and trends about "${category}" from the last 24 hours (use Google Search).
-  
-  Based on the top trending story, write a concise, engaging blog post in Uzbek language.
-  
-  Constraints:
-  - Language: Uzbek (Latin script)
-  - Style: Trendy, short, catchy (Social media style)
-  - Length: Short (300-500 words max)
-  - Content: Focus on "New", "Latest", "Just now" aspects.
-  
-  Return the response in this exact JSON format:
-  {
-    "title": "🔥 Trendy Title",
-    "excerpt": "One sentence hook.",
-    "content": "Full markdown content with emojis...",
-    "seoTitle": "SEO Title",
-    "seoDescription": "SEO Desc",
-    "keywords": ["tag1", "tag2"]
-  }`;
+  const prompt = `Google Search orqali "${category}" mavzusidagi so'nggi 24 soatdagi eng muhim yangiliklar va trendlarni top.
+
+Topilgan eng dolzarb yangilik asosida O'zbek tilida PROFESSIONAL jurnalistik maqola yoz.
+
+📰 MAQOLA FORMATI:
+
+1. SARLAVHA: 
+   - Jurnalistik uslubda (masalan: "Google yangi AI modelini taqdim etdi: Gemini 2.0 Flash imkoniyatlari")
+   - 🔥 emoji bilan boshlash mumkin
+
+2. LID (Kirish - 2-3 gap):
+   - 5W formati: Kim? Nima? Qachon? Qayerda? Nega?
+   - Eng muhim fakt birinchi gapda
+
+3. ASOSIY MATN:
+   
+   ## Voqea tafsilotlari
+   - Aniq faktlar, raqamlar, sanalar
+   - Kompaniya/tashkilot nomlari
+   
+   ## Nima uchun muhim?
+   - Tahlil va kontekst
+   - Foydalanuvchilarga ta'siri
+   
+   ## Asosiy xulosalar
+   • Birinchi xulosa
+   • Ikkinchi xulosa
+   • Uchinchi xulosa
+
+4. XULOSA (1 paragraf):
+   - Qisqacha yakuniy fikr
+   - Kelajak istiqbollari
+
+📝 QOIDALAR:
+- O'zbek tili (lotin yozuvi)
+- Professional jurnalistik uslub
+- Minimum 600-800 so'z
+- Markdown formatlash: **qalin**, *kursiv*, ## sarlavhalar, - ro'yxatlar
+- Raqamlar va statistika ishlatish
+
+JSON formatda qaytaring:
+{
+  "title": "🔥 Jurnalistik sarlavha",
+  "excerpt": "Yangilik mazmunini 1-2 gapda ifodalovchi lid",
+  "content": "To'liq markdown formatdagi professional maqola",
+  "seoTitle": "SEO sarlavha",
+  "seoDescription": "SEO tavsif (150-160 belgi)",
+  "keywords": ["kalit1", "kalit2", "kalit3", "kalit4"]
+}`;
 
   try {
     console.log(`🔍 Searching and generating trending post for: ${category}...`);
