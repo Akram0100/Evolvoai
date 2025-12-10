@@ -25,12 +25,42 @@ services:
       - key: TELEGRAM_ADMIN_ID
         sync: false
       - key: CRON_SECRET
-        generate: true
+        sync: false
       - key: UNSPLASH_ACCESS_KEY
         sync: false
       - key: GEMINI_API_KEY2
         sync: false
       - key: NEXT_PUBLIC_APP_URL
+        sync: false
+
+  # Cron Job - Hourly blog posts (06:00-22:00 Tashkent = 01:00-17:00 UTC)
+  - type: cron
+    name: evolvoai-hourly-posts
+    env: node
+    plan: free
+    schedule: "0 1-17 * * *"
+    buildCommand: echo "Cron job ready"
+    startCommand: |
+      curl -X POST "https://evolvoai-ysus.onrender.com/api/cron/generate?type=hourly" \
+        -H "Authorization: Bearer $CRON_SECRET" \
+        -H "Content-Type: application/json"
+    envVars:
+      - key: CRON_SECRET
+        sync: false
+
+  # Cron Job - Trend posts (08:30, 11:30, 14:30, 17:30, 20:30 Tashkent = 03:30, 06:30, 09:30, 12:30, 15:30 UTC)
+  - type: cron
+    name: evolvoai-trend-posts
+    env: node
+    plan: free
+    schedule: "30 3,6,9,12,15 * * *"
+    buildCommand: echo "Cron job ready"
+    startCommand: |
+      curl -X POST "https://evolvoai-ysus.onrender.com/api/cron/generate?type=trend" \
+        -H "Authorization: Bearer $CRON_SECRET" \
+        -H "Content-Type: application/json"
+    envVars:
+      - key: CRON_SECRET
         sync: false
 
 databases:
